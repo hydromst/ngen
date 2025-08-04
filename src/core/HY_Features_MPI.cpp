@@ -48,7 +48,7 @@ HY_Features_MPI::HY_Features_MPI( PartitionData partition_data, geojson::GeoJSON
           };
           // TODO: add command line or config option to have this be omitted
           //FIXME why isn't default param working here??? get_output_header_line() fails.
-          formulation->write_output("Time Step,""Time,"+formulation->get_output_header_line(",")+"\n");
+          formulation->write_output("Time Step,""Time,"+formulation->get_output_header_line(","));
           
           // get the catchment layer from the hydro fabric
           const auto& cat_json_node = linked_hydro_fabric->get_feature(feat_id);

@@ -128,7 +128,7 @@ namespace ngen
                     throw models::external::State_Exception(msg);
                 }
                 std::string output = std::to_string(output_time_index)+","+current_timestamp+","+
-                                    r_c->get_output_line_for_timestep(output_time_index)+"\n";
+                                    r_c->get_output_line_for_timestep(output_time_index);
                 r_c->write_output(output);
                 //TODO put this somewhere else.  For now, just trying to ensure we get m^3/s into nexus output
                 double area;

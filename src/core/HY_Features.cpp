@@ -42,7 +42,7 @@ HY_Features::HY_Features(network::Network network, std::shared_ptr<Formulation_M
           }
           // TODO: add command line or config option to have this be omitted
           //FIXME why isn't default param working here??? get_output_header_line() fails.
-          formulation->write_output("Time Step,""Time,"+formulation->get_output_header_line(",")+"\n");
+          formulation->write_output("Time Step,""Time,"+formulation->get_output_header_line(","));
           //Find upstream nexus ids
           origins = network.get_origination_ids(feat_id);
 

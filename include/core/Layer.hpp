@@ -127,6 +127,10 @@ namespace ngen
                              +" at feature id "+id;
                     throw models::external::State_Exception(msg);
                 }
+                // Construct the output string without the newline character.
+                // Flushing is now handled inside the write_output function using std::endl
+                // to ensure immediate writing of each line to disk.
+
                 std::string output = std::to_string(output_time_index)+","+current_timestamp+","+
                                     r_c->get_output_line_for_timestep(output_time_index);
                 r_c->write_output(output);

@@ -48,6 +48,8 @@ HY_Features_MPI::HY_Features_MPI( PartitionData partition_data, geojson::GeoJSON
           };
           // TODO: add command line or config option to have this be omitted
           //FIXME why isn't default param working here??? get_output_header_line() fails.
+          // Write the header line without newline character.
+          // Newline and flushing are now handled within write_output() using std::endl
           formulation->write_output("Time Step,""Time,"+formulation->get_output_header_line(","));
           
           // get the catchment layer from the hydro fabric

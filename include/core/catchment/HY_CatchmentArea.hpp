@@ -8,6 +8,7 @@
 #include "StreamHandler.hpp"
 #include "FileStreamHandler.hpp"
 #include "GenericDataProvider.hpp"
+#include <mutex>
 
 
 class HY_CatchmentArea : public HY_CatchmentRealization, public GM_Object
@@ -29,7 +30,14 @@ class HY_CatchmentArea : public HY_CatchmentRealization, public GM_Object
     // Updated by: Md Saiduzzaman
     //------------------------------------------------------------------------------------
 
-    void write_output(std::string out){ output<<out<< std::endl; }
+    // Atomic, line-based write with immediate flush (no header_once needed)
+    void write_output(const std::string& out) {
+      static std::mutex m;                 // function-local: serializes writes to this stream
+      std::lock_guard<std::mutex> lock(m);
+      output << out << '\n';               // write the full record + newline
+      output.flush();                      // immediate visibility (equivalent to std::endl flush)
+    }
+
     virtual ~HY_CatchmentArea();
 
     protected:

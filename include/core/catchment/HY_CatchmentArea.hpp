@@ -31,12 +31,13 @@ class HY_CatchmentArea : public HY_CatchmentRealization, public GM_Object
     //------------------------------------------------------------------------------------
 
     // Atomic, line-based write with immediate flush (no header_once needed)
+    // Atomic, line-based write with immediate flush (C++14-friendly)
     void write_output(const std::string& out) {
-      static std::mutex m;                 // function-local: serializes writes to this stream
+      static std::mutex m;                 // serialize writes to avoid interleaving
       std::lock_guard<std::mutex> lock(m);
-      output << out << '\n';               // write the full record + newline
-      output.flush();                      // immediate visibility (equivalent to std::endl flush)
+      output << out << std::endl;          // newline + flush via manipulator
     }
+
 
     virtual ~HY_CatchmentArea();
 
